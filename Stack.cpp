@@ -1,23 +1,23 @@
-#include "Stack.h"
-#include "LinkedListStack.h"
-#include "VectorStack.h"
-#include "StackImplementation.h"
+#include "Queue.h"
+#include "LinkedListQueue.h"
+#include "VectorQueue.h"
+#include "QueueImplementation.h"
 #include <stdexcept>
 #include <iostream>
 
-Stack::Stack(StackContainer container)
+Queue::Queue(QueueContainer container)
     : _containerType(container)
 {
     switch (container)
     {
-        case StackContainer::List:
+        case QueueContainer::List:
         {
-            _pimpl = static_cast<IStackImplementation*>(new LinkedList());
+            _pimpl = static_cast<IQueueImplementation*>(new LinkedList());
             break;
         }
-        case StackContainer::Vector: 
+        case QueueContainer::Vector: 
         {
-            _pimpl = static_cast<IStackImplementation*>(new Vector());
+            _pimpl = static_cast<IQueueImplementation*>(new Vector());
             break;
         }
         default:
@@ -25,14 +25,14 @@ Stack::Stack(StackContainer container)
     }
 }
 
-Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer container) 
+Queue::Queue(const ValueType* valueArray, const size_t arraySize, QueueContainer container) 
     : _containerType(container)
 {
     switch (container)
     {
-        case StackContainer::List:
+        case QueueContainer::List:
         {
-            _pimpl = static_cast<IStackImplementation*>(new LinkedList());
+            _pimpl = static_cast<IQueueImplementation*>(new LinkedList());
 
             for (int i = 0; i < arraySize; i++)
             {
@@ -41,9 +41,9 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 
             break;
         }
-        case StackContainer::Vector:
+        case QueueContainer::Vector:
         {
-            _pimpl = static_cast<IStackImplementation*>(new Vector(valueArray, arraySize)); 
+            _pimpl = static_cast<IQueueImplementation*>(new Vector(valueArray, arraySize)); 
             break;
         }
         default:
@@ -51,21 +51,21 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
     }
 }
 
-Stack::Stack(const Stack& copyStack)
+Queue::Queue(const Queue& copyQueue)
 {
    
-    switch (copyStack._containerType)
+    switch (copyQueue._containerType)
     {
-        case StackContainer::List: 
+        case QueueContainer::List: 
         {
-            _pimpl = static_cast<IStackImplementation*>(new LinkedList(*(static_cast<LinkedList*>(copyStack._pimpl))));
-            this->_containerType = StackContainer::List;
+            _pimpl = static_cast<IQueueImplementation*>(new LinkedList(*(static_cast<LinkedList*>(copyQueue._pimpl))));
+            this->_containerType = QueueContainer::List;
             break;
         }
-        case StackContainer::Vector:
+        case QueueContainer::Vector:
         {
-            _pimpl = static_cast<IStackImplementation*>(new Vector(*(static_cast<Vector*>(copyStack._pimpl))));
-            this->_containerType = StackContainer::Vector;
+            _pimpl = static_cast<IQueueImplementation*>(new Vector(*(static_cast<Vector*>(copyQueue._pimpl))));
+            this->_containerType = QueueContainer::Vector;
             break;
         }
         default:
@@ -73,30 +73,30 @@ Stack::Stack(const Stack& copyStack)
     }
 }
 
-Stack& Stack::operator=(const Stack& copyStack)
+Queue& Queue::operator=(const Queue& copyQueue)
 {
-    switch (copyStack._containerType)
+    switch (copyQueue._containerType)
     {
-        case StackContainer::List: {
-            if (this == &copyStack)
+        case QueueContainer::List: {
+            if (this == &copyQueue)
             {
                 return *this;
             }
             delete this->_pimpl;
-            _pimpl = static_cast<IStackImplementation*>(new LinkedList(*(static_cast<LinkedList*>(copyStack._pimpl))));
-            this->_containerType = StackContainer::List;
+            _pimpl = static_cast<IQueueImplementation*>(new LinkedList(*(static_cast<LinkedList*>(copyQueue._pimpl))));
+            this->_containerType = QueueContainer::List;
             return *this;
             break;
         }
 
-        case StackContainer::Vector: {
-            if (this == &copyStack)
+        case QueueContainer::Vector: {
+            if (this == &copyQueue)
             {
                 return *this; 
             }
             delete this->_pimpl;
-            _pimpl = static_cast<IStackImplementation*>(new Vector(*(static_cast<Vector*>(copyStack._pimpl))));
-            this->_containerType = StackContainer::Vector;
+            _pimpl = static_cast<IQueueImplementation*>(new Vector(*(static_cast<Vector*>(copyQueue._pimpl))));
+            this->_containerType = QueueContainer::Vector;
             return *this;
             break;
         }
@@ -105,20 +105,20 @@ Stack& Stack::operator=(const Stack& copyStack)
     }
 }
 
-Stack::Stack(Stack&& moveStack) noexcept
+Queue::Queue(Queue&& moveQueue) noexcept
 {
-    switch (moveStack._containerType)
+    switch (moveQueue._containerType)
     {
-        case StackContainer::List: {
-            this->_pimpl = moveStack._pimpl;
-            moveStack._pimpl = nullptr;
-            this->_containerType = StackContainer::List;
+        case QueueContainer::List: {
+            this->_pimpl = moveQueue._pimpl;
+            moveQueue._pimpl = nullptr;
+            this->_containerType = QueueContainer::List;
             break;
         }
-        case StackContainer::Vector: {
-            this->_pimpl = moveStack._pimpl;
-            moveStack._pimpl = nullptr;
-            this->_containerType = StackContainer::Vector;
+        case QueueContainer::Vector: {
+            this->_pimpl = moveQueue._pimpl;
+            moveQueue._pimpl = nullptr;
+            this->_containerType = QueueContainer::Vector;
             break;
         }
 
@@ -128,33 +128,33 @@ Stack::Stack(Stack&& moveStack) noexcept
     }
 }
 
-Stack& Stack::operator=(Stack&& moveStack) noexcept
+Queue& Queue::operator=(Queue&& moveQueue) noexcept
 {
-    switch (moveStack._containerType)
+    switch (moveQueue._containerType)
     {
-        case StackContainer::List: 
+        case QueueContainer::List: 
         {   
-            if (this == &moveStack)
+            if (this == &moveQueue)
             {
                 return *this;
             }
             delete this->_pimpl;
-            this->_pimpl = moveStack._pimpl;
-            moveStack._pimpl = nullptr;
-            this->_containerType = StackContainer::List;
+            this->_pimpl = moveQueue._pimpl;
+            moveQueue._pimpl = nullptr;
+            this->_containerType = QueueContainer::List;
             return *this;
             break;
         }
-        case StackContainer::Vector: 
+        case QueueContainer::Vector: 
         {
-            if (this == &moveStack)
+            if (this == &moveQueue)
             {
                 return *this;
             }
             delete this->_pimpl;
-            this->_pimpl = moveStack._pimpl;
-            moveStack._pimpl = nullptr;
-            this->_containerType = StackContainer::Vector;
+            this->_pimpl = moveQueue._pimpl;
+            moveQueue._pimpl = nullptr;
+            this->_containerType = QueueContainer::Vector;
             return *this;
             break;
         }
@@ -167,33 +167,33 @@ Stack& Stack::operator=(Stack&& moveStack) noexcept
 }
 
 
-Stack::~Stack()
+Queue::~Queue()
 {
     delete _pimpl; 
 }
 
-void Stack::push(const ValueType& value)
+void Queue::push(const ValueType& value)
 {
     // можно, т.к. push определен в интерфейсе
     _pimpl->push(value);
 }
 
-void Stack::pop()
+void Queue::pop()
 {
     _pimpl->pop();
 }
 
-const ValueType& Stack::top() const
+const ValueType& Queue::top() const
 {
     return _pimpl->top();
 }
 
-bool Stack::isEmpty() const
+bool Queue::isEmpty() const
 {
     return _pimpl->isEmpty();
 }
 
-size_t Stack::size() const
+size_t Queue::size() const
 {
     return _pimpl->size();
 }

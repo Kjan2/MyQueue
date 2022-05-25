@@ -6,34 +6,34 @@
 using ValueType = double;
 
 // на основе какого контейнера работает стек
-enum class StackContainer {
+enum class QueueContainer {
     Vector = 0,
     List,
     // можно дополнять другими контейнерами
 };
 
 // декларация интерфейса реализации
-class IStackImplementation;
+class IQueueImplementation;
 
-class Stack
+class Queue
 {
 public:
     // Большая пятерка
-    Stack(StackContainer container = StackContainer::Vector);
+    Queue(QueueContainer container = QueueContainer::Vector);
     // элементы массива последовательно подкладываются в стек
-    Stack(const ValueType* valueArray, const size_t arraySize, 
-          StackContainer container = StackContainer::Vector);
+    Queue(const ValueType* valueArray, const size_t arraySize, 
+          QueueContainer container = QueueContainer::Vector);
 
-    explicit Stack(const Stack& copyStack);
-    Stack& operator=(const Stack& copyStack);
+    explicit Queue(const Queue& copyQueue);
+    Queue& operator=(const Queue& copyQueue);
 
     // Здесь как обычно
-    Stack(Stack&& moveStack) noexcept;
-    Stack& operator=(Stack&& moveStack) noexcept;
+    Queue(Queue&& moveQueue) noexcept;
+    Queue& operator=(Queue&& moveQueue) noexcept;
 
-    ~Stack();
+    ~Queue();
 
-    // добавление в хвост
+    // добавление в начало
     void push(const ValueType& value);
     // удаление с хвоста
     void pop();
@@ -46,8 +46,8 @@ public:
 
 private:
     // указатель на имплементацию (уровень реализации)
-    IStackImplementation* _pimpl = nullptr;
+    IQueueImplementation* _pimpl = nullptr;
     // тип контейнера, наверняка понадобится
-    StackContainer _containerType;
+    QueueContainer _containerType;
 };
 

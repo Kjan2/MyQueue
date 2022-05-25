@@ -152,7 +152,7 @@ Vector::Iterator Vector::end()
     return end;
 }
 
-void Vector::push(const Value& value)
+void Vector::pushBack(const Value& value)
 {
     _size++;
 
@@ -186,7 +186,7 @@ void Vector::push(const Value& value)
     }  
 }
 
-void Vector::pushFront(const Value& value)
+void Vector::push(const Value& value)
 {
     _size++;
 

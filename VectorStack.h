@@ -49,14 +49,14 @@ public:
 
         \param value: value which must be added
     */
-    void push(const Value& value);
+    void pushBack(const Value& value);
 
     /*!
         \brief Add element to the begin of vector
 
         \param value: value which must be added
     */
-    void pushFront(const Value& value);
+    void push(const Value& value);
 
     /*!
         \brief Insert item(s) to vector at passed index

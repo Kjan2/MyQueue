@@ -1,7 +1,7 @@
 #pragma once
-#include "StackImplementation.h"
+#include "QueueImplementation.h"
 using Value = double;
-class LinkedList : public IStackImplementation
+class LinkedList : public IQueueImplementation
 {
 public:
 
