@@ -119,13 +119,10 @@ void LinkedList::push(const Value& value)
     }
 
     Node* node = new Node(value, nullptr);
-    Node* curr = _head;
-    while(curr->next)
-    {
-        curr = curr->next;
-    }
     
-    curr->next = node;
+    Node* temp = _head;
+    _head = node;
+    node->next = temp;
 }
 
 void LinkedList::pop()

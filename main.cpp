@@ -1,20 +1,18 @@
-#include "Stack.h"
+#include "Queue.h"
 #include <iostream>
 #include <utility>
 #include <typeinfo>
-#include "LinkedListStack.h"
+#include "LinkedListQueue.h"
+#include "VectorQueue.h"
 
 int main()
 {
-    LinkedList test;
+    Queue test(QueueContainer::Vector);
     test.push(3);
     test.push(4);
-    test.print();
+    std::cout << test.top() << std::endl;
     test.pop();
-    test.print();
-    test.pop();
-    test.pop(); 
-
+    std::cout << test.top() << " " << test.size() << std::endl;
 
     return 0;
 }

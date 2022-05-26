@@ -1,4 +1,4 @@
-#include "VectorStack.h"
+#include "VectorQueue.h"
 #include <iostream>
 using Value = double;
 
@@ -196,6 +196,7 @@ void Vector::push(const Value& value)
         {
             _capacity++;
         }
+
         _capacity *= _multiplicativeCoef;
 
         Value* newData = new Value[_capacity];
@@ -213,8 +214,14 @@ void Vector::push(const Value& value)
 
         newData = nullptr;
     }
-
-
+    else
+    {
+        for (size_t i = 0; i < (_size - 1); i++)
+        {
+            _data[_size - i - 1] = _data[_size - 2 - i];
+        }
+        _data[0] = value;
+    }
 }
 
 void Vector::insert(const Value& value, size_t pos)
@@ -526,6 +533,7 @@ const Value& Vector::top() const
     {
         throw _size;
     }
+
     return _data[_size - 1];
 }
 

@@ -4,7 +4,7 @@
 using Value = double;
 
 // интерфейс для конкретных реализаций контейнера для стека
-class IStackImplementation {
+class IQueueImplementation {
 public:
     // добавление в хвост
     virtual void push(const Value& value) = 0;
@@ -17,6 +17,6 @@ public:
     // размер 
     virtual size_t size() const = 0;
     // виртуальный деструктор
-    virtual ~IStackImplementation() = default;
+    virtual ~IQueueImplementation() = default;
 };
 

@@ -1,12 +1,12 @@
 #pragma once
 #include <stdio.h>
-#include "StackImplementation.h"
+#include "QueueImplementation.h"
 
 /// type of vector item
 /// TODO: change to template
 using Value = double;
 
-class Vector : public IStackImplementation
+class Vector : public IQueueImplementation
 {
 public:
     // All c-tors and = operators make vectors 
